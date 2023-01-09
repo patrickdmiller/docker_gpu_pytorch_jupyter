@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  gpu-jupyter-pytorch:
+    image: gpu-jupyter-pytorch
+    shm_size: '2gb'
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities:
+              - gpu
+    ports:
+      - 80:8888
+    volumes:
+      - /app/data:/tf/notebooks
+    environment:
+      GRANT_SUDO: "yes"
+      NB_UID: ${JUPYTER_UID:-1000}
+      NB_GID: ${JUPYTER_GID:-1000}
+    # enable sudo permissions
+    user:
+      "root"

@@ -1,0 +1,10 @@
+# pytorch cuda image https://hub.docker.com/r/pytorch/pytorch
+FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
+
+RUN pip install jupyter
+
+# jupyter port
+ENV PORT 8888
+
+#start jupyter with first time password. you will change this on first login
+CMD exec jupyter notebook --ip 0.0.0.0 --port $PORT --allow-root --NotebookApp.token='defaultpassword'
